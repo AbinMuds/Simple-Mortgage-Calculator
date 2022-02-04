@@ -1,28 +1,32 @@
 package com.codewithavi;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        //constants
+        final byte monthsInYears = 12;
+        final byte Percent = 100;
+
         Scanner scanner = new Scanner(System.in);
-//        p is total principal
+
         System.out.print("Principal:");
-        long p = scanner.nextLong();
-        // R is rate of intrest annually
-        System.out.print("Interest Rate: ");
-        double R = scanner.nextDouble();
-        // r is intrest per month
-        double r = (double) (R/12)/100;
-        // N is number of years
-        System.out.print("Number of years: ");
-        int N = scanner.nextInt();
-        // n is number of months
-        int n = N * 12;
+        int principal = scanner.nextInt();
+
+        System.out.print("Annual Interest Rate: ");
+        float annualInterest = scanner.nextFloat();
+        float monthlyInterest = annualInterest/ monthsInYears / Percent;
+
+        System.out.print("Period In Years: ");
+        byte years = scanner.nextByte();
+        int numberOfPayments = years * monthsInYears;
+
         // Now we calculate mortgage
-        double Mortage = (double) ((p * r * Math.pow(1+r,n)) /(Math.pow(1+r,n) -1));
-        System.out.print("So the value of Mortage is : ");
-        System.out.println(Mortage);
+        double Mortage = (double) ((principal * monthlyInterest * Math.pow(1+monthlyInterest,numberOfPayments)) /(Math.pow(1+monthlyInterest,numberOfPayments) -1));
+
+        String mortgageFormatted = NumberFormat.getCurrencyInstance().format(Mortage);
+        System.out.println("Mortgage: " + mortgageFormatted);
     }
 }
